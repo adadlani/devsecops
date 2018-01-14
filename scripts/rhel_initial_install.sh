@@ -1,5 +1,8 @@
 #!/bin/bash
 # Script to execute on a fresh install of RHEL 7.x
+# Typically user gets the file using curl:
+# curl https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
+#  --output rhel_initial_install.sh --silent
 # Assumes executing as ec2-user which can execute sudo
 # Required arguments:
 #  GH_USER username
@@ -13,15 +16,6 @@ if [[ $# -ne 4 ]] ; then
   echo    script GH_USER GH_REPO GH_CFG_NAME GH_CFG_EMAIL
   exit 1
 fi
-
-GH_USER=$1
-GH_REPO=$2
-GH_CFG_NAME=$3
-GH_CFG_EMAIL=$4
-echo $GH_USER
-echo $GH_REPO
-echo $GH_CFG_NAME
-echo $GH_CFG_EMAIL
 
 # Update system
 sudo yum update -y
