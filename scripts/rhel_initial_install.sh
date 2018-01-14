@@ -1,5 +1,8 @@
 #!/bin/bash
-# Script to execute on a fresh install of RHEL 7.x
+# Script to execute on a fresh install of RHEL 7.x to:
+#  Install GIT
+#  Configure GIT
+#  Clone repo
 # Typically user gets the file using curl:
 # curl https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
 #  --output rhel_initial_install.sh --silent
@@ -21,13 +24,20 @@ fi
 sudo yum update -y
 
 # Install GIT and configure (HTTPS protocol assumed)
+echo Installing GIT...
 sudo yum install git -y
-GH_USER=$1
-GH_REPO=$2
-echo Configuring GITHub...
+
+echo Configuring GIT...
 git config --global push.default simple
-git config credentials.helper store
-#git push https://github.com/$GH_USER/$GH_REPO
 git config --global credential.helper 'cache --timeout 7200'
 git config --global user.name "$3"
 git config --global user.email $4
+
+echo Cloning repo...
+git clone https://github.com/$1/$2
+
+echo Configuring GITHub credentials....
+# Following requires an existing repo (e.g. .git/config)
+cd devsecops
+git config credentials.helper store
+git push https://github.com/$1/$2
