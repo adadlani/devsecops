@@ -1,0 +1,5 @@
+Git stuff:
+To enable HTTPS credential caching
+git config credentials.helper store
+git push https://github.com/username/repo.git /* User prompted for creds */
+git config --global credential.helper 'cache --timeout SECONDS'
