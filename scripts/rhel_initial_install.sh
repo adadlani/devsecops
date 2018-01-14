@@ -21,7 +21,7 @@ fi
 sudo yum update -y
 
 # Install GIT and configure (HTTPS protocol assumed)
-sudo yum install git
+sudo yum install git -y
 GH_USER=$1
 GH_REPO=$2
 echo Configuring GITHub...
