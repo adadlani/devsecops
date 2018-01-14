@@ -3,7 +3,9 @@
 #  Perform system update
 #  Enable rhui-REGION-rhel-server-optional repository (e.g. awscli)
 #  Add EPEL repository (e.g collectd)
-#  Install GIT
+#  Install packages:
+#   GIT
+#   AWSCLI
 #  Configure GIT
 #  Clone repo
 # Typically user gets the file using curl:
@@ -35,10 +37,18 @@ curl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --ou
  --silent
 sudo yum install epel-release-latest-7.noarch.rpm -y
 
-# Install GIT and configure (HTTPS protocol assumed)
+# Install GIT
 echo Installing GIT...
 sudo yum install git -y
 
+# Install AWSCLI (yum or pip?  AWS prefers pip)
+echo Installing AWSCLI...
+#sudo yum install awscli
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py --user  # Installs pip in ~/.local/bin
+# TODO: PATH must include ~/.local/bin (automagically done?)
+
+# Configure GIT (HTTPS protocol assumed)
 echo Configuring GIT...
 git config --global push.default simple
 git config --global credential.helper 'cache --timeout 7200'
