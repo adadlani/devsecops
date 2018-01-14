@@ -1,7 +1,8 @@
 #!/bin/bash
 # Script to execute on a fresh install of RHEL 7.x to:
 #  Perform system update
-#  Add EPEL repository
+#  Enable rhui-REGION-rhel-server-optional repository (e.g. awscli)
+#  Add EPEL repository (e.g collectd)
 #  Install GIT
 #  Configure GIT
 #  Clone repo
@@ -24,6 +25,10 @@ fi
 
 # Update system
 sudo yum update -y
+
+# Enable rhui-REGION-rhel-server-optional repo
+# /etc/yum.repos.d/redhat-rhui.repo
+sudo yum-config-manager --enable rhui-REGION-rhel-server-optional
 
 # Install EPEL
 curl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --output epel-release-latest-7.noarch.rpm \
