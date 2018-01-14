@@ -27,7 +27,7 @@ sudo yum update -y
 
 # Install EPEL
 curl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --output epel-release-latest-7.noarch.rpm \
- --silient
+ --silent
 sudo yum install epel-release-latest-7.noarch.rpm -y
 
 # Install GIT and configure (HTTPS protocol assumed)
