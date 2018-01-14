@@ -40,4 +40,4 @@ echo Configuring GITHub credentials....
 # Following requires an existing repo (e.g. .git/config)
 cd devsecops
 git config credentials.helper store
-git push https://github.com/$1/$2
+git push https://github.com/$1/$2 --all
