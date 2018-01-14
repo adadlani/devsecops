@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Installation script for Collectd
+# Requires EPEL repository!!!
 sudo yum install -y collectd collectd-rrdtool rrdtool collectd-web httpd
 
 # HERE DOCUMENT
