@@ -1,5 +1,7 @@
 #!/bin/bash
 # Script to execute on a fresh install of RHEL 7.x to:
+#  Perform system update
+#  Add EPEL repository
 #  Install GIT
 #  Configure GIT
 #  Clone repo
@@ -22,6 +24,11 @@ fi
 
 # Update system
 sudo yum update -y
+
+# Install EPEL
+curl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --output epel-release-latest-7.noarch.rpm \
+ --silient
+sudo yum install epel-release-latest-7.noarch.rpm -y
 
 # Install GIT and configure (HTTPS protocol assumed)
 echo Installing GIT...
