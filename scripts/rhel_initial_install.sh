@@ -36,8 +36,8 @@ git config --global user.email $4
 echo Cloning repo...
 git clone https://github.com/$1/$2
 
-echo Configuring GITHub credentials....
 # Following requires an existing repo (e.g. .git/config)
-cd devsecops
+echo Configuring GITHub credentials....
+cd ${2%.*}  # Get rename name from $2
 git config credentials.helper store
 git push https://github.com/$1/$2 --all
