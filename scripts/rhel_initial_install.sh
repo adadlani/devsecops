@@ -44,7 +44,7 @@ sudo yum install git -y
 # Install AWSCLI (yum or pip?  AWS prefers pip)
 echo Installing AWSCLI...
 #sudo yum install awscli
-curl -O https://bootstrap.pypa.io/get-pip.py
+curl -O https://bootstrap.pypa.io/get-pip.py --silent
 python get-pip.py --user  # Installs pip in ~/.local/bin
 # TODO: PATH must include ~/.local/bin (automagically done?)
 
