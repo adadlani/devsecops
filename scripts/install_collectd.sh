@@ -34,18 +34,18 @@ Configure hostname resolve (if not using DNS):
  a.b.c.d <LocalHostName>
 COMMENTS
 
-# systemd which is NOT part of Linux AMI)
+# systemd (RHEL7x)
 # Enable services at startup 
-#sudo systemctl enable httpd
-#sudo systemctl enable collectd
+sudo systemctl enable httpd
+sudo systemctl enable collectd
 # Start services
-#sudo systemctl start httpd
-#sudo systemctl start collectd
+sudo systemctl start httpd
+sudo systemctl start collectd
 
-# SysV/Upstart
+# SysV/Upstart (Linux AMI)
 # Enable services at startup
-sudo chkconfig httpd on
-sudo chkconfig collectd on
+#sudo chkconfig httpd on
+#sudo chkconfig collectd on
 # Start services
-sudo service httpd start
-sudo service collectd start
+#sudo service httpd start
+#sudo service collectd start
