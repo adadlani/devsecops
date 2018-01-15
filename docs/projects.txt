@@ -3,3 +3,5 @@ Few possible spike efforts:
   http://docs.splunk.com/Documentation/Splunk/7.0.1/Metrics/GetMetricsInCollectd
 - Analytics for Nagios
   https://splunkbase.splunk.com/app/352/
+- EC2 Instance Metadata Query Tool
+  https://aws.amazon.com/code/ec2-instance-metadata-query-tool/
