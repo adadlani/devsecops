@@ -8,7 +8,7 @@
 #  Configure GIT
 #  Clone repo
 # Typically user gets the file using curl:
-# curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
+# curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/centos_initial_install.sh \
 # --silent
 # Assumptions:
 #  - Executing as user centos which can execute sudo
