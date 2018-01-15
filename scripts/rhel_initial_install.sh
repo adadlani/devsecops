@@ -11,7 +11,9 @@
 # Typically user gets the file using curl:
 # curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
 # --silent
-# Assumes executing as ec2-user which can execute sudo
+# Assumptions:
+#  - Executing as ec2-user which can execute sudo
+#  - EC2 member of IAM role so we can execute AWS CLI
 # Required arguments:
 #  GH_USER username
 #  GH_REPO repo (e.g. myrepo.git)
