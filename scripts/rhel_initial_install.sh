@@ -33,8 +33,7 @@ sudo yum update -y
 sudo yum-config-manager --enable rhui-REGION-rhel-server-optional
 
 # Install EPEL
-curl https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --output epel-release-latest-7.noarch.rpm \
- --silent
+curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --silent
 sudo yum install epel-release-latest-7.noarch.rpm -y
 
 # Install GIT
