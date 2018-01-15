@@ -12,7 +12,7 @@
 # curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/centos_initial_install.sh \
 # --silent
 # Assumptions:
-#  - Executing as user centos which can execute sudo
+#  - Executing as user centos which can execute sudo and $HOME set to /home/centos
 #  - EC2 member of IAM role so we can execute AWS CLI
 # Required arguments:
 #  GH_USER username
@@ -40,8 +40,16 @@ sudo yum install git -y
 # Install AWSCLI (yum or pip?  AWS prefers pip)
 echo Installing AWSCLI...
 #sudo yum install awscli
+
+# Store all our custom downloads to ~/download directory
+mkdir $HOME/download
+
+# PIP install
+cd $HOME/download
 curl -O https://bootstrap.pypa.io/get-pip.py --silent
 python get-pip.py --user  # Installs pip in ~/.local/bin which is by default in $PATH
+
+# AWSCLI install via PIP
 pip install awscli --upgrade --user
 
 # Install wget
@@ -56,6 +64,7 @@ git config --global user.name "$3"
 git config --global user.email $4
 
 echo Cloning repo...
+cd $HOME
 git clone https://github.com/$1/$2
 
 # Following requires an existing repo (e.g. .git/config)
