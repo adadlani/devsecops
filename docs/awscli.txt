@@ -26,3 +26,8 @@
 #  stop-instances
 #  terminate-instances
 #  wait
+
+General notes:
+- AMI references snapshots (ami-cac1ffdc -> Block Devices 
+  /dev/xvda=snap-0379b0e61fb9558ac:8:true:gp2
+
