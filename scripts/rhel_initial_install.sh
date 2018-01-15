@@ -9,8 +9,8 @@
 #  Configure GIT
 #  Clone repo
 # Typically user gets the file using curl:
-# curl https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
-#  --output rhel_initial_install.sh --silent
+# curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
+# --silent
 # Assumes executing as ec2-user which can execute sudo
 # Required arguments:
 #  GH_USER username
