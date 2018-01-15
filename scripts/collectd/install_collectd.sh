@@ -21,13 +21,12 @@ Configuring collectd (leave all defaults):
 Configuring Apache (2.4)
  To list compiled Apache modules: httpd -l
  Eg. core.c, prefork.c, http_core.c and mod_so.c
- Add mod_authz_core by modifying httpd.conf:
  
  /etc/httpd/conf/httpd.conf
  listen 0.0.0.0:80  # Listen on IPv4 port 80
  /etc/httpd/conf.d/collectd.conf 
- Under Directory for collect3->mod_authz_core.c:
-  Require ip <InsertPublicIp>
+ Under /bin section:
+  Require ip <InsertRequestingHostIPorNetwork>
  
 Configure hostname resolve (if not using DNS):
  /etc/hosts
