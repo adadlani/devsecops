@@ -1,0 +1,28 @@
+# Interesting aws ec2 cmds:
+#  attach-volume
+#  create-snapshot *
+#  create-volume
+#  delete-snapshot
+#  delete-volume
+#  describe-instance-status
+#   List all the instances (Ids) and state
+#   aws ec2 cmd --region us-east-1 
+#  describe-instances
+#  describe-snapshot-attribute
+#  describe-snapshots
+#  describe-tags
+#  describe-volumne-attribute
+#  describe-volume-status
+#  describe-volumes
+#  describe-volumes-modifications
+#  detach-volume
+#  modify-snapshot-attribute
+#  modify-volume
+#  modify-volume-attribute
+#  reboot-instances
+#  reset-snapshot-attribute
+#  run-instances
+#  start-instances
+#  stop-instances
+#  terminate-instances
+#  wait
