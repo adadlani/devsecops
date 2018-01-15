@@ -5,6 +5,7 @@
 #  Install packages:
 #   GIT
 #   AWSCLI (via pip)
+#   wget
 #  Configure GIT
 #  Clone repo
 # Typically user gets the file using curl:
@@ -42,6 +43,10 @@ echo Installing AWSCLI...
 curl -O https://bootstrap.pypa.io/get-pip.py --silent
 python get-pip.py --user  # Installs pip in ~/.local/bin which is by default in $PATH
 pip install awscli --upgrade --user
+
+# Install wget
+echo Installing wget...
+sudo yum install wget -y
 
 # Configure GIT (HTTPS protocol assumed)
 echo Configuring GIT...
