@@ -45,8 +45,8 @@ sudo yum install git -y
 echo Installing AWSCLI...
 #sudo yum install awscli
 curl -O https://bootstrap.pypa.io/get-pip.py --silent
-python get-pip.py --user  # Installs pip in ~/.local/bin
-# TODO: PATH must include ~/.local/bin (automagically done?)
+python get-pip.py --user  # Installs pip in ~/.local/bin which is by default in $PATH
+pip install awscli --upgrade --user
 
 # Configure GIT (HTTPS protocol assumed)
 echo Configuring GIT...
