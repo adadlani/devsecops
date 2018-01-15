@@ -59,6 +59,6 @@ git clone https://github.com/$1/$2
 
 # Following requires an existing repo (e.g. .git/config)
 echo Configuring GITHub credentials....
-cd ${2%.*}  # Get rename name from $2
+cd ${2%.*}  # Get repo base name from $2
 git config credentials.helper store
 git push https://github.com/$1/$2 --all
