@@ -1,18 +1,17 @@
 #!/bin/bash
 # Script to execute on a fresh install of CentOS 7.x to:
 #  Perform system update
-#  Enable rhui-REGION-rhel-server-optional repository (e.g. awscli)
-#  Add EPEL repository (e.g collectd)
+#  Install-Enable EPEL repository (e.g. awscli, collectd)
 #  Install packages:
 #   GIT
-#   AWSCLI
+#   AWSCLI (via pip)
 #  Configure GIT
 #  Clone repo
 # Typically user gets the file using curl:
 # curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/rhel_initial_install.sh \
 # --silent
 # Assumptions:
-#  - Executing as ec2-user which can execute sudo
+#  - Executing as user centos which can execute sudo
 #  - EC2 member of IAM role so we can execute AWS CLI
 # Required arguments:
 #  GH_USER username
@@ -30,13 +29,8 @@ fi
 # Update system
 sudo yum update -y
 
-# Enable rhui-REGION-rhel-server-optional repo
-# /etc/yum.repos.d/redhat-rhui.repo
-sudo yum-config-manager --enable rhui-REGION-rhel-server-optional
-
 # Install EPEL
-curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm --silent
-sudo yum install epel-release-latest-7.noarch.rpm -y
+yum -y install epel-release
 
 # Install GIT
 echo Installing GIT...
