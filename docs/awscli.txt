@@ -46,6 +46,9 @@ General notes:
     credentials
       aws_access_key_id = 
       aws_secret_access_key =
+- Envs: 
+    AWS_CONFIG_FILE $HOME/.aws/config
+    AWS_SHARED_CREDENTIALS_FILE $HOME/.aws/crendentials
 - aws configure set region <region-id> e.g. us-east-1|us-west-1
 - Use --debug option to enable logging; Search for following:
   - DEBUG - Arguments (Parsing the cmd and args)
