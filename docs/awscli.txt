@@ -28,6 +28,46 @@
 #  wait
 
 General notes:
+- Tools:  pip install jmespath-terminal
+- External tools: jp, jpterm, aws-shell, xargs, sort, tail
+- AWS Alias (similar to ~/.gitconfig [alias] st=status ci=commit
 - AMI references snapshots (ami-cac1ffdc -> Block Devices 
   /dev/xvda=snap-0379b0e61fb9558ac:8:true:gp2
-
+- AWS CLI installation:
+  - Ananconda /w Python 3.x
+  - PIP (part of Ananconda)
+  - awscli (pip install awscli) e.g. awscli, aws-shell, awsebcli 
+- A host to execute AWS CLI, one method is via AWS Access/Secret keys:
+  ~/.aws/
+    config
+      [default]
+      region = us-east-1
+      output = json
+    credentials
+      aws_access_key_id = 
+      aws_secret_access_key =
+- aws configure set region <region-id> e.g. us-east-1|us-west-1
+- Use --debug option to enable logging; Search for following:
+  - DEBUG - Arguments (Parsing the cmd and args)
+  - DEBUG - Unpacked value (when using file://myinputfile.txt as argument)
+  - DEBUG - Making request for OperationModel (Validat/Serialize parms)
+            About to go on-the-wire and the url going to be hit
+  - DEBUG - "POST...200" Actual request
+  - DEBUG - Response body Actual response (notice botocore internal receives XML)
+  - DEBUG - No retry needed (tells you if any retries were needed)
+- Few CLI examples:
+  aws sts get-caller-identity /* return account arn and userid who made the call */
+  vpc_id=$(aws ec2 create-vpc --cidr-block 10.0.0.0/16  --query Vpc.Id 
+    --output text)
+  vpc_id=$(jp -v Vpc.Vpcid <<< "$create_vpc_response")
+  Use --generate-cli-skeleton output --query Vpc.VpcId /* to see type of rsp */
+  aws create-subnet --cidr-block 10.0.0.0/24 --vpc-id $vpc_id --query Subnet.SubnetId \
+    --output text
+  gateway_id=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId \
+    --output text
+  aws ec2 attach-internet-gateway --vpc-id $vpc_id --internet-gateway-id $gateway_id
+  table_id=$(aws ec2 describe-route-tables --filters Name=vpc-id,Values=$vpc_id \
+    --query RouteTables[].RouteTableId --output text
+  aws ec2 create-route --route-table-id $table_id --destination-cidr-block 0.0.0.0/0 \
+    --gateway-id $gateway_id
+  
