@@ -28,6 +28,7 @@
 #  wait
 
 General notes:
+- Tab completion: complete -C aws_completer aws
 - Tools:  pip install jmespath-terminal
 - External tools: jp, jpterm, aws-shell, xargs, sort, tail
 - AWS Alias (similar to ~/.gitconfig [alias] st=status ci=commit
