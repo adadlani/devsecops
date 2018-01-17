@@ -60,6 +60,11 @@ General notes:
   - DEBUG - Response body Actual response (notice botocore internal receives XML)
   - DEBUG - No retry needed (tells you if any retries were needed)
 - Few CLI examples:
+  --starting-token and --max-items to paginate results
+  aws ec2 describe-regions --output table /* You can use --query {label: value} to format */
+  aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,PublicDnsName,
+    State.Name] --output text
+  aws ec2 describe-instances --output text | grep INSTANCES | cut -f 8
   aws sts get-caller-identity /* return account arn and userid who made the call */
   vpc_id=$(aws ec2 create-vpc --cidr-block 10.0.0.0/16  --query Vpc.Id 
     --output text)
@@ -74,4 +79,3 @@ General notes:
     --query RouteTables[].RouteTableId --output text
   aws ec2 create-route --route-table-id $table_id --destination-cidr-block 0.0.0.0/0 \
     --gateway-id $gateway_id
-  
