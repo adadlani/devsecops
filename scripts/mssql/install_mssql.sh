@@ -8,7 +8,7 @@ sudo yum update -y
 # mssql-server
 sudo curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/config/rhel/7/mssql-server-2017.repo
 
-# List all mssql packages:
+# INFO: List all mssql packages:
 sudo yum search mssql
 # mssql-server.x86_64 : Microsoft SQL Server Relational Database Engine
 # mssql-server-agent.x86_64 : Microsoft SQL Server Agent
@@ -26,5 +26,18 @@ sudo curl -o /etc/yum.repos.d/ms-prod.repo https://packages.microsoft.com/config
 #  /var/opt/mssql (Databases and log files, log directory and mssql.conf)
 sudo yum install mssql-server mssql-server-agent mssql-tools -y
 
-# Initial setup
+# Initial setup (accept license and enter SA password)
 # sudo /opt/msql/bin/mssql-conf setup
+
+# Punch holes in firewall
+sudo firewall-cmd --add-port=1433/tcp --permanent
+sudo firewall-cmd --reload
+
+# INFO: Examine contents of pkgs and point out few files
+# rpm -ql mssql-server
+#  /opt/mssql/bin <-directory->
+#  /opt/mssql/bin/sqlservr <-sql server binary->
+#  /opt/mssql/bin/mssql-conf <-utility to configure sql->
+#  /opt/mssql/lib/sqldkxplat.sfp & sqlservr.sfp <-pal components->
+# rpm -ql mssql-server-agent
+#  /opt/mssql/lib/sqlagent.sfp <-pal component additional functionality->
