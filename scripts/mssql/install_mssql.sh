@@ -41,3 +41,6 @@ sudo firewall-cmd --reload
 #  /opt/mssql/lib/sqldkxplat.sfp & sqlservr.sfp <-pal components->
 # rpm -ql mssql-server-agent
 #  /opt/mssql/lib/sqlagent.sfp <-pal component additional functionality->
+# rpm -ql mssql-tools
+#  /opt/mssql-tools/bin/bcp <-utility for bulk loading->
+#  /opt/mssql-tools/bin/sqlcmd <-sql cli->
