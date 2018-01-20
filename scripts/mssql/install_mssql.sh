@@ -44,6 +44,23 @@ sudo firewall-cmd --reload
 # rpm -ql mssql-tools
 #  /opt/mssql-tools/bin/bcp <-utility for bulk loading->
 #  /opt/mssql-tools/bin/sqlcmd <-sql cli->
+# Other import paths/files:
+# ls -1 /opt/mssql/bin
+#  compress-dump.sh
+#  crash-support-functions.sh
+#  generate-sql-dump.sh
+#  handle-crash.sh
+#  mssql-conf
+#  paldumper
+#  sqlservr
+# ls -1 /opt/mssql/lib
+#  *.so
+#  *.sfp
+# ls -1 /var/opt/mssql/
+#  ./data
+#  ./log
+#  mssql.conf
+#  ./secrets
 
 # Update PATH so we can call sqlcmd
 echo "PATH=$PATH:/opt/mssql-tools/bin" >> $HOME/.bash_profile
