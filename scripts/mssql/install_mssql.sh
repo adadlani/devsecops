@@ -58,6 +58,10 @@ sudo firewall-cmd --reload
 #  *.sfp
 # ls -1 /var/opt/mssql/
 #  ./data
+#    master.mdf, masterlog.ldf
+#    modellog.ldf, model.mdf
+#    msdbdata.mdf,msdblog.ldf
+#    tempdb.mdf,temlog.ldf
 #  ./log
 #  mssql.conf
 #  ./secrets
