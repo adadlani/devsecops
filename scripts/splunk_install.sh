@@ -51,3 +51,22 @@ sudo $SPLUNK_HOME/bin/splunk enable boot-start -user splunk
 # Systemd
 #sudo systemctl list-unit-files # List all unit files
 #sudo systemctl enable|disable|start|stop <unit>
+
+# Create certs to use for HTTPS
+# Logic will need to be moved up eventually
+# Create secret key file (key) and certificate signing request (csr) file
+PUBLIC_DNS=$(curl http://169.254.169.254/latest/meta-data/public-hostname --silent)
+openssl req -new -newkey rsa:2048 -nodes -keyout idx_web.key -out idx_web.csr\
+ -sha256 -subj "/C=US/ST=VA/L=Sterling/O=Anel Dadlani/OU=Splunk TLS/CN=$PUBLIC_DNS"
+# Create pem file by self-signing the csr file
+openssl x509 -signkey idx_web.key -in idx_web.csr -req -sha256 -days 365 -out idx_web.pem
+# TODO: Move the files in the desired locations
+
+# We have *.key, *.csr and *.pem (Splunk uses *.key and *.pem) with web interface
+# Create $SPLUNK_HOME/etc/system/local/web.conf with content
+#[settings]
+#enableSplunkWebSSL = true
+#privKeyPath = etc/auth/idx_web/idx_web.key
+
+# Restart Splunk
+#serverCert = etc/auth/idx_web/idx_web.pem
