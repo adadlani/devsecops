@@ -24,4 +24,5 @@ aws s3 cp s3://$BUCKET/$LATEST_SPLUNK_RPM $HOME/download
 # Install Splunk
 # Note error: useradd: cannot create directory /opt/splunk
 # but installation seems to continue OK and /opt/splunk is created
+# and newly created user splunk has owner-ship
 sudo rpm -ivh $HOME/$LATEST_SPLUNK_RPM
