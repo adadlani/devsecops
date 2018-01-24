@@ -88,3 +88,6 @@ sudo chown splunk:splunk $SPLUNK_HOME/etc/system/local/web.conf
 
 # Restart Splunk
 sudo -u splunk $SPLUNK_HOME/bin/splunk restart
+
+# Display public URL for external client access
+echo "The Splunk public web interface is at https://$PUBLIC_DNS"
