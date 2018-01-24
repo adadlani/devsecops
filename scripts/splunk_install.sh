@@ -70,7 +70,7 @@ sudo -u splunk openssl x509 -signkey $KEY_FILE -in $CSR_FILE -req -sha256 -days 
 
 # TODO: Move the files in the desired locations
 KEY_PATH=$SPLUNK_HOME/etc/auth/idx_web
-sudo -u splunk mkdir $KEY_PATH
+sudo -u splunk mkdir -p $KEY_PATH
 sudo -u splunk mv $KEY_FILE $KEY_PATH/.
 sudo -u splunk mv $CSR_FILE $KEY_PATH/.
 sudo -u splunk mv $PEM_FILE $KEY_PATH/.
