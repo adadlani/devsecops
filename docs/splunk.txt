@@ -1,0 +1,24 @@
+Notes on Splunk
+===============
+
+https://www.splunk.com/en_us/download/splunk-enterprise.html#tabs/linux
+Splunk Enterprise 7.0.1 (Free 500MB/Day) Free full feature trial 60 days
+After that you either purchase or use Splunk Free with limitations:
+-Cluster are not possible
+- No alerting/monitoring features
+- No authentication or user/role mgt (all users full access)
+- No TCP/HTTP fowarding formats (only to other Splunk instance)
+
+https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=7.0.1&product=splunk&filename=splunk-7.0.1-2b5b15c4ee89-linux-2.6-x86_64.rpm&wget=true
+File: splunk-7.0.1-2b5b15c4ee89-linux-2.6-x86_64.rpm
+For easy access copy to S3 private bucket
+
+Can source data from many sources including:
+- SNMP
+- Syslog
+- Windows Events
+
+Sample SPLs:
+
+Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
+ | timechart avg(StartupTimeMs) by Name
