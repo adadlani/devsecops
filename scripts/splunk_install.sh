@@ -63,7 +63,7 @@ CSR_FILE=$SPLUNK_HOME/idx_web.csr
 PEM_FILE=$SPLUNK_HOME/idx_web.pem
 SUBJECT="/C=US/ST=CA/L=San Francisco/O=Splunk Org/OU=Splunk Unit/CN=$PUBLIC_DNS"
 sudo -u splunk openssl req -new -newkey rsa:2048 -nodes -keyout $KEY_FILE -out $CSR_FILE\
- -sha256 -subj $SUBJECT
+ -sha256 -subj "$SUBJECT"
 
 # Create pem file by self-signing the csr file
 sudo -u splunk openssl x509 -signkey $KEY_FILE -in $CSR_FILE -req -sha256 -days 365 -out $PEM_FILE
