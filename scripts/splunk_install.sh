@@ -83,7 +83,8 @@ enableSplunkWebSSL = true
 privKeyPath = etc/auth/idx_web/idx_web.key
 serverCert = etc/auth/idx_web/idx_web.pem
 EOF
-sudo -u splunk mv web.conf $SPLUNK_HOME/etc/system/local
+sudo mv web.conf $SPLUNK_HOME/etc/system/local
+sudo chown splunk:splunk $SPLUNK_HOME/etc/system/local/web.conf
 
 # Restart Splunk
 sudo -u splunk $SPLUNK_HOME/bin/splunk restart
