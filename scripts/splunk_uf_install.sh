@@ -37,7 +37,7 @@ sudo rpm -ivh $HOME/download/$LATEST_SPLUNK_UF_RPM
 # Default location of Splunk Forwarder
 SPLUNK_UF_HOME=/opt/splunkforwarder
 # Start
-sudo -u splunk $SPLUNK_UF_HOME/bin/splunk start
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk start --accept-license
 
 # Configure
 sudo -u splunk $SPLUNK_UF_HOME/bin/splunk login -auth admin:changeme
@@ -73,7 +73,7 @@ server = $SPLUNK_SERVER:9997
 
 [tcpout-server://$SPLUNK_SERVER:9997]
 EOF
-sudo mv output.conf $SPLUNK_UF_HOME/etc/system/local
+sudo mv outputs.conf $SPLUNK_UF_HOME/etc/system/local
 sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/outputs.conf
 
 ##########################################################
