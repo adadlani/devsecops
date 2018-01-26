@@ -18,6 +18,11 @@ Can source data from many sources including:
 - Syslog
 - Windows Events
 
+Configure a new index using web interface:
+- Browse Settings -> Data -> Indexes
+- CLI /opt/splunk/bin/splunk add index linux_test2 # prompts for admin creds
+- Many optional args such as --size 200
+
 Sample SPLs:
 
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \

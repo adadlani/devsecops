@@ -27,6 +27,40 @@ aws s3 cp s3://$BUCKET/$LATEST_SPLUNK_UF_RPM $HOME/download
 # and newly created user splunk has owner-ship
 sudo rpm -ivh $HOME/download/$LATEST_SPLUNK_UF_RPM
 
-# Configure
-
 # Start
+sudo -u splunk /opt/splunkforwarder/bin/splunk start
+
+# Configure
+#/opt/splunkforwarder/bin/splunk login -auth admin:changeme
+#/opt/splunkforwarder/bin/splunk edit user admin -password NEW_PASSWORD
+# Below probably need root priv.
+#/opt/splunkforwarder/bin/splunk enable boot-start
+
+##########################################################
+# Modify /opt/splunkforwarder/etc/system/local/inputs.conf
+#[default]
+#host = fqn.of.current.host
+
+# We can have multiple of these sections
+#[monitor:///path/to/file]
+#sourcetype = some_source_type
+#disabled = 0
+#index = linux_test2
+##########################################################
+
+##########################################################
+# Create /opt/splunkforwarder/etc/system/local/outputs.conf
+#[tcpout]
+#defaultGroup = default-autolb-group
+
+#[tcpout:default-autolb-group]
+#server = fqn.to.splunk.server:9997
+
+#[tcpout-server://fqn.to.splunk.server:9997]
+
+##########################################################
+
+# Restart splunk forwarder
+
+# Confirm its sending data
+#/opt/splunkforwarder/bin/splunk list forward-server
