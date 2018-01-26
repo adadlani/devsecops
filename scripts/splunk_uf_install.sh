@@ -4,15 +4,22 @@
 # Assumes EC2 instance is an appropriate IAM role to access S3 bucket
 # Required arguments:
 #  BUCKET Contains the Splunk UF installation RPM
+#  New password for Splunk UF
+#  Index name
+#  Splunk server to send messages
 
 # Display help if required argument(s) not passed
-if [[ $# -ne 1 ]] ; then
+if [[ $# -ne 4 ]] ; then
   echo Usage:
-  echo    script BUCKET
+  echo    script BUCKET NEW_PASSWORD INDEX_NAME SPLUNK_SERVER
   exit 1
 fi
 
 BUCKET=$1
+NEW_PASSWORD=$2
+INDEX_NAME=$3
+SPLUNK_SERVER=$4
+
 LATEST_SPLUNK_UF_RPM=splunkforwarder-7.0.1-2b5b15c4ee89-linux-2.6-x86_64.rpm
 
 # Update system
@@ -27,40 +34,52 @@ aws s3 cp s3://$BUCKET/$LATEST_SPLUNK_UF_RPM $HOME/download
 # and newly created user splunk has owner-ship
 sudo rpm -ivh $HOME/download/$LATEST_SPLUNK_UF_RPM
 
+# Default location of Splunk Forwarder
+SPLUNK_UF_HOME=/opt/splunkforwarder
 # Start
-sudo -u splunk /opt/splunkforwarder/bin/splunk start
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk start
 
 # Configure
-#/opt/splunkforwarder/bin/splunk login -auth admin:changeme
-#/opt/splunkforwarder/bin/splunk edit user admin -password NEW_PASSWORD
-# Below probably need root priv.
-#/opt/splunkforwarder/bin/splunk enable boot-start
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk login -auth admin:changeme
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk edit user admin -password $NEW_PASSWORD
+
+# Need root priv.
+sudo $SPLUNK_UF_HOME/bin/splunk enable boot-start
 
 ##########################################################
-# Modify /opt/splunkforwarder/etc/system/local/inputs.conf
-#[default]
-#host = fqn.of.current.host
+# Create /opt/splunkforwarder/etc/system/local/inputs.conf
+PUBLIC_DNS=$(curl http://169.254.169.254/latest/meta-data/public-hostname --silent)
+cat<<EOF >> inputs.conf
+[default]
+host = $PUBLIC_DNS
 
-# We can have multiple of these sections
-#[monitor:///path/to/file]
-#sourcetype = some_source_type
-#disabled = 0
-#index = linux_test2
+[monitor:///var/log]
+sourcetype = some_source_type
+disabled = 0
+index = $INDEX_NAME
+EOF
+sudo mv inputs.conf $SPLUNK_UF_HOME/etc/system/local
+sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/inputs.conf
 ##########################################################
 
 ##########################################################
 # Create /opt/splunkforwarder/etc/system/local/outputs.conf
-#[tcpout]
-#defaultGroup = default-autolb-group
+cat<<EOF >> outputs.conf
+[tcpout]
+defaultGroup = default-autolb-group
 
-#[tcpout:default-autolb-group]
-#server = fqn.to.splunk.server:9997
+[tcpout:default-autolb-group]
+server = $SPLUNK_SERVER:9997
 
-#[tcpout-server://fqn.to.splunk.server:9997]
+[tcpout-server://$SPLUNK_SERVER:9997]
+EOF
+sudo mv output.conf $SPLUNK_UF_HOME/etc/system/local
+sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/outputs.conf
 
 ##########################################################
 
 # Restart splunk forwarder
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk restart
 
 # Confirm its sending data
-#/opt/splunkforwarder/bin/splunk list forward-server
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk list forward-server
