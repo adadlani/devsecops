@@ -8,6 +8,7 @@
 #   wget
 #  Configure GIT
 #  Clone repo
+#  Configure AWS CLI for ease of use
 # Typically user gets the file using curl:
 # curl -O https://raw.githubusercontent.com/adadlani/devsecops/master/scripts/centos_initial_install.sh \
 # --silent
@@ -26,6 +27,9 @@ if [[ $# -ne 4 ]] ; then
   echo    script GH_USER GH_REPO GH_CFG_NAME GH_CFG_EMAIL
   exit 1
 fi
+
+# Defaults
+AWS_REGION = us-east-1
 
 # Update system
 sudo yum update -y
@@ -49,8 +53,11 @@ cd $HOME/download
 curl -O https://bootstrap.pypa.io/get-pip.py --silent
 python get-pip.py --user  # Installs pip in ~/.local/bin which is by default in $PATH
 
-# AWSCLI install via PIP
+# AWSCLI install via PIP and configure
 pip install awscli --upgrade --user
+pip install jmespath-terminal --user
+aws configure set region $AWS_REGION
+complete -C aws_completer aws
 
 # Install wget
 echo Installing wget...
