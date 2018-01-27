@@ -8,3 +8,33 @@ Few possible spike efforts:
 - ELK stack (on PlSt)
   Centralized logging with ELK on Linux and Windows hosts
   Other devices such as IOT, FWs, IDs/IPs, Routers, Switches, etc
+
+General toolkit (always evolving):
+- fastly
+- OpenSSL
+- GRUNT
+- RAKE
+- JIRA
+- Akami
+- stage
+- CHEF
+- docker
+- Terraform
+- git
+- PivotalTracker
+- VictorOps
+- Bitbucker
+- DATADOG
+- New Relic
+- pagerduty
+- sumologic
+- loggly
+- logstash
+- mercurial
+- Apache Spark
+- hadoop
+- kafka
+- Travis CI
+- circleci
+- Jenkins
+- OpenVPN
