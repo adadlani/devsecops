@@ -12,7 +12,9 @@ INSTANCE_ID=$1
 
 # Get following of instance: 
 #  Root device (e.g. /dev/sda1)
+ROOT_DEVICE=$(curl http://169.254.169.254/latest/meta-data/block-device-mapping/ami --silent)
 #  Block devices (e.g. /dev/sda1)
+BLOCK_DEVICE=$(curl http://169.254.169.254/latest/meta-data/block-device-mapping/ami --silent)
 #  EBS ID (e.g. vol-1234)
 
 # Create snapshot of EBS ID
