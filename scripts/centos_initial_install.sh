@@ -29,7 +29,8 @@ if [[ $# -ne 4 ]] ; then
 fi
 
 # Defaults
-AWS_REGION = us-east-1
+AWS_REGION=us-east-1
+AWS_OUTPUT_FORMAT=json
 
 # Update system
 sudo yum update -y
@@ -57,6 +58,7 @@ python get-pip.py --user  # Installs pip in ~/.local/bin which is by default in 
 pip install awscli --upgrade --user
 pip install jmespath-terminal --user
 aws configure set region $AWS_REGION
+aws configure set output $AWS_OUTPUT_FORMAT
 complete -C aws_completer aws
 
 # Install wget
