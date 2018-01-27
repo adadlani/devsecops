@@ -44,7 +44,7 @@ sudo -u splunk $SPLUNK_UF_HOME/bin/splunk login -auth admin:changeme
 sudo -u splunk $SPLUNK_UF_HOME/bin/splunk edit user admin -password $NEW_PASSWORD
 
 # Need root priv.
-sudo $SPLUNK_UF_HOME/bin/splunk enable boot-start
+sudo $SPLUNK_UF_HOME/bin/splunk enable boot-start -user splunk
 
 ##########################################################
 # Create /opt/splunkforwarder/etc/system/local/inputs.conf
