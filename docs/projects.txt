@@ -38,3 +38,4 @@ General toolkit (always evolving):
 - circleci
 - Jenkins
 - OpenVPN
+- HashiCorp (open source tools)
