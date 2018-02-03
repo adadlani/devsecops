@@ -33,6 +33,11 @@ At scale:
 
 Single-Instance deployment:  Input, Parsing, Indexing & Searching
 
+Three main roles in Splunk:
+- Admin /* Install apps, create knowledge objects, etc */
+- Power /* Create and share knowledge objects and do real time searches */
+- User /* Will only see self created knowledge objects and ones shared with them */
+
 Sample SPLs:
 
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
