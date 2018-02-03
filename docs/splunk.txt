@@ -23,6 +23,16 @@ Configure a new index using web interface:
 - CLI /opt/splunk/bin/splunk add index linux_test2 # prompts for admin creds
 - Many optional args such as --size 200
 
+Basic Splunk Architecture (Building blocks):
+- Indexer(s)
+- Search Head(s)
+- Universal Forwarder(s)
+At scale:
+- Deployment Server(s) Single Primary and Secondaries
+- Heavy Forwarder (allows parsing/filtering/cleansing/masking/etc)
+
+Single-Instance deployment:  Input, Parsing, Indexing & Searching
+
 Sample SPLs:
 
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
