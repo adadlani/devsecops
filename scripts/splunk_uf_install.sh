@@ -64,18 +64,20 @@ sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/inputs.conf
 
 ##########################################################
 # Create /opt/splunkforwarder/etc/system/local/outputs.conf
-cat<<EOF >> outputs.conf
-[tcpout]
-defaultGroup = default-autolb-group
-
-[tcpout:default-autolb-group]
-server = $SPLUNK_SERVER:9997
-
-[tcpout-server://$SPLUNK_SERVER:9997]
-EOF
-sudo mv outputs.conf $SPLUNK_UF_HOME/etc/system/local
-sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/outputs.conf
-
+# Method 1:
+#cat<<EOF >> outputs.conf
+#[tcpout]
+#defaultGroup = default-autolb-group
+#
+#[tcpout:default-autolb-group]
+#server = $SPLUNK_SERVER:9997
+#
+#[tcpout-server://$SPLUNK_SERVER:9997]
+#EOF
+#sudo mv outputs.conf $SPLUNK_UF_HOME/etc/system/local
+#sudo chown splunk:splunk $SPLUNK_UF_HOME/etc/system/local/outputs.conf
+# Method 2:
+sudo -u splunk $SPLUNK_UF_HOME/bin/splunk add forward-server $SPLUNK_SERVER:9997
 ##########################################################
 
 # Restart splunk forwarder
