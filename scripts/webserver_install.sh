@@ -28,5 +28,12 @@ sudo setfacl -m g:splunk:rx /var/log/httpd
 sudo setfacl -m g:splunk:rx /var/log/httpd/access_log
 sudo setfacl -m g:splunk:rx /var/log/httpd/error_log
 
+# Update Splunk inputs.conf
+/opt/splunkforwarder/bin/splunk add monitor /var/log/httpd/access_log
+/opt/splunkforwarder/bin/splunk add monitor /var/log/httpd/error_log
+
+# Update Splunk outputs.conf
+/opt/splunkforwarder/bin/splunk add forward-server $SPLUNK_SERVER:$SPLUNK_FWD_PORT
+
 # Start httpd
 sudo systemctl start httpd
