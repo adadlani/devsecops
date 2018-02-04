@@ -42,3 +42,5 @@ Sample SPLs:
 
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
  | timechart avg(StartupTimeMs) by Name
+
+index="hotels-on-makemytrip" | stats dc(city) by city | sort -str(city) (data source: kaggle.com)
