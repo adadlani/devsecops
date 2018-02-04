@@ -21,5 +21,12 @@ sudo systemctl enable httpd
 # TODO: Install & Configure UF
 ./splunk_uf_install.sh 
 
+# Add ACL rules for Splunk to access Apache logs
+# TODO: To persist logrotate:
+# https://serverfault.com/questions/258827/what-is-the-most-secure-way-to-allow-a-user-read-access-to-a-log-file
+sudo setfacl -m g:splunk:rx /var/log/httpd
+sudo setfacl -m g:splunk:rx /var/log/httpd/access_log
+sudo setfacl -m g:splunk:rx /var/log/httpd/error_log
+
 # Start httpd
 sudo systemctl start httpd
