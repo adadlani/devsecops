@@ -40,7 +40,10 @@ Three main roles in Splunk:
 
 Sample SPLs:
 
+- List all indices
+| eventcount summarize=false index=* | fields index
+- Sample
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
  | timechart avg(StartupTimeMs) by Name
-
+- Sample
 index="hotels-on-makemytrip" | stats dc(city) by city | sort -str(city) (data source: kaggle.com)
