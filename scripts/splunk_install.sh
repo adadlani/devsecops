@@ -47,6 +47,7 @@ sudo $SPLUNK_HOME/bin/splunk enable boot-start -user splunk
 #splunk stop
 #splunk restart
 #splunk status
+#splunk help
 
 # Systemd
 #sudo systemctl list-unit-files # List all unit files
