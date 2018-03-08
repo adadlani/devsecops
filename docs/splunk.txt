@@ -18,6 +18,22 @@ Can source data from many sources including:
 - Syslog
 - Windows Events
 
+Splunk Universal Forwarder (built-in license):
+- Seperate installer (small footprint)
+- No Splunk web interface
+- Cannot index, search or parse data
+- Python not included
+- Can only output to Splunk indexers
+
+Splunk Heavy Forwarder:
+- Same installer as Splunk Enterprise pkg
+- Requires license
+- Includes Splunk Web interface
+- Can parse, filter (null queue), and route data at the event level
+- Capable of masking sensitive information in your data
+- Includes Python
+- Capable of indexing locally, searching and alerting
+
 Sample SPLs:
 
 Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
