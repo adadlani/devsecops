@@ -1,11 +1,12 @@
-# Script to create a JIRA ticket(s)
+""" Script to create JIRA ticket(s)"""
+
 import json
 import os
 import requests
 import sys
 
 user = os.environ['JIRA_USER']
-password = os.environ['JIRA_PWD']  
+password = os.environ['JIRA_PWD']
 protocol = 'http:/'
 host = '127.0.0.1'
 port = ':8080/'
@@ -33,13 +34,13 @@ class Ticket:
         self.summary = summary
         self.description = description
         self.assignee = assignee
-    
+
     def __str__(self):
         return '//'.join([str(self.key), str(self.issue_type),
                           str(self.summary), str(self.description),
                           str(self.reporter), str(self.priority),
                           str(self.assignee)])
-    
+
     def set(self, member, value):
         if member == 'summary':
             self.summary = value
@@ -62,9 +63,9 @@ class Ticket:
 def create_ticket(ticket=None, parent_ticket_key=None):
     # Build REST endpoint
     createissue_api = 'issue/'
-    end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base, 
-                          createissue_api])
-    
+    end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base,
+                                                              createissue_api])
+
     # Required fields
     post_data = {
         'fields': {
@@ -75,9 +76,9 @@ def create_ticket(ticket=None, parent_ticket_key=None):
             'reporter': {'name': ticket.reporter}
         }
     }
-    
+
     # Optional fields
-    if ticket.description:    
+    if ticket.description:
         post_data['fields']['description'] = ticket.description
     if ticket.labels:
         post_data['fields']['labels'] = ticket.labels
@@ -96,7 +97,7 @@ def create_ticket(ticket=None, parent_ticket_key=None):
 
     # If this is a Sub-task then also pass a parent key
     if parent_ticket_key:
-        post_data['fields']['parent']= {'id': parent_ticket_key}
+        post_data['fields']['parent'] = {'id': parent_ticket_key}
 
     # Send the request
     r = requests.post(end_point, auth=(user, password), json=post_data)
@@ -109,9 +110,9 @@ def create_ticket(ticket=None, parent_ticket_key=None):
 
 def add_watchers(ticket, ticket_key):
     # Build REST endpoint
-    end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base, 
-                         'issue', ticket_key, 'watchers'])
-    
+    end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base,
+        'issue', ticket_key, 'watchers'])
+
     # Add wachers
     for watcher in ticket.watchers:
         # Send the request
@@ -128,7 +129,7 @@ def set_global_fields(cfg_data):
         g_issue_type = cfg_data['issue_type']  # Required
     if 'summary' in cfg_data:
         global g_summary
-        g_sumamry= cfg_data['summary']  # Required
+        g_sumamry = cfg_data['summary']  # Required
     if 'priority' in cfg_data:
         global g_priority
         g_priority = cfg_data['priority']
@@ -140,10 +141,10 @@ def set_global_fields(cfg_data):
         g_watchers = cfg_data['watchers']
     if 'reporter' in cfg_data:
         global g_reporter
-        g_reporter= cfg_data['reporter']
+        g_reporter = cfg_data['reporter']
     if 'description' in cfg_data:
         global g_description
-        g_description= cfg_data['description']
+        g_description = cfg_data['description']
     if 'assignee' in cfg_data:
         global g_assignee
         g_assignee = cfg_data['assignee']
@@ -175,11 +176,11 @@ for ticket in cfg_data['tickets']:
     t = Ticket(key=g_project, issue_type=g_issue_type, reporter=g_reporter,
                priority=g_priority, label=g_labels, watchers=g_watchers,
                summary=g_summary, description=g_description, assignee=g_assignee)
-    
+
     # Set overrides
     set_override_fields(t, ticket)
 
-    # Create ticket    
+    # Create ticket
     if t.issue_type == 'Task':
         print('Generating Task...', end='')
         status, parent_ticket_key = create_ticket(t)
@@ -192,5 +193,3 @@ for ticket in cfg_data['tickets']:
         print('status:', status, ticket_key)
         if ticket_key and t.watchers:
             add_watchers(t, ticket_key)
-
-    
