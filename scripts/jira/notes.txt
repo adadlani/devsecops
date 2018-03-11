@@ -1,0 +1,44 @@
+# Sample curl to create an issue
+curl -g -D- -u User:Password -X POST 
+--data '{"fields":{"project":{"key":"PM"},"summary":"something","issuetype":
+{"name":"Task"}}}' 
+-H'Content-Type: application/json' http://localhost:8080/rest/api/2/issue/
+
+# Typical successful response
+{"id":"10033","key":"PM-34",
+ "self":"http://127.0.0.1:8080/rest/api/2/issue/10033"}
+
+# Get all metadata for all issue types across all projects
+# Returned key=PM, issuetypes=[Task,Sub-task]
+createmeta_api = 'issue/createmeta'
+end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base, createmeta_api])
+r = requests.get(end_point, auth=(user, password))
+
+# More details?
+#http://localhost:8080/rest/api/2/issue/createmeta?projectKeys=JRA
+&issuetypeNames=Bug&expand=projects.issuetypes.fields
+
+# Provides the meat we're after:
+#  issueType Task (required fields)
+#    summary, issuetype, project, reporter
+#  All others are options: duedate, description, assignee, priority, timetracking, labels
+end_point = end_point + '?projectKeys=PM&isstypeNames=Task&expand=projects.issuetypes.fields'
+r = requests.get(end_point, auth=(user, password))
+
+# Sample Python
+createissue_api = 'issue/'
+end_point = '/'.join([protocol, host]) + port + '/'.join([rest_base, createissue_api])
+# Report is auto-assigned based on current auth? 'reporter': 'Anel.Dadlani@home.com',
+post_data = {
+    'fields': {
+        'project': {'key': 'PM'},
+        'summary': 'First automated JIRA ticket',
+        'issuetype': {'name': 'Task'},
+        'description': 'Yeah description goes here...',
+        'reporter': {'name':'Anel.Dadlani'}
+    }
+}
+#headers = {'Content-type': 'application/json'}
+r = requests.post(end_point, auth=(user, password), json=post_data)
+print(r.status_code)
+print(r.text)

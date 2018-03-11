@@ -1,0 +1,33 @@
+{
+    "project": "PM",
+    "reporter": "Anel.Dadlani",
+    "priority": "Low",
+    "labels": ["SomeLabel"],
+    "watchers": ["Anneecka.Dadlani","Kanchann.Dadlani"],
+    "assignee": "Anneecka.Dadlani",
+    "tickets": [
+        {
+            "issuetype": "Task",
+            "summary": "Some major task",
+            "description": "Major task description goes here..."
+        },
+        {
+            "issuetype": "Sub-task",
+            "summary": "1. Do this sub-task",
+            "description": "Sub-task description goes here..."
+        },
+        {
+            "issuetype": "Sub-task",
+            "summary": "2. Do this sub-task",
+            "description": "Sub-task description goes here...",
+            "priority": "Medium"
+        },
+        {
+            "issuetype": "Sub-task",
+            "summary": "3. Do this sub-task",
+            "description": "Sub-task description goes here...",
+            "priority": "High"
+        }
+    ]
+    
+}
