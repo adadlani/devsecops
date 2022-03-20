@@ -1,12 +1,31 @@
 # Notes on Splunk SDK download, installation, configuration and sample test run
 
+# Assumptions 
+- Using OOTB Amazon Linux 2 AMI (includes Python3)
+- Following dev tools are available/installed:
+  GIT
+  Python3 (can be installed using Anaconda Distribution)
+- All steps with ec2-user context (all exceptions will be noted)
+  
 # References
 https://dev.splunk.com/python
 
-# Download
+# Pre-setup
+# Create python virtual environment (best practice to isolate dependencies)
+python3.7 -m venv my-sdk-env
+# Enable environment
+source my-sdk-env/bin/activate
+# Update current pip installation
+pip install --upgrade pip
 
-# Install
+# Download and install
+pip install splunk-sdk  # Alterate method easy_install or by source
+
 
 # Configuration
 
 # Test run
+# Launch Python REPL and execute commands:
+>>> import splunklib
+>>> dir(splunklib)  # display all attributes and methods of an object
+>>> print(splunklib.__version__) # display SDK version
