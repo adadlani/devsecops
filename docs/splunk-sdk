@@ -19,6 +19,10 @@ source my-sdk-env/bin/activate
 which python # ~/my-sdk-env/bin/python
 # Update current pip installation
 pip install --upgrade pip
+# Install Pep8 (style checker/lint)
+pip install pycodestyle
+# Install library to load variables from external env file
+pip install python-dotenv
 
 # Download and install SDK
 pip install splunk-sdk  # Alterate method easy_install
