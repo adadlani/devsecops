@@ -15,12 +15,13 @@ https://dev.splunk.com/python
 python3.7 -m venv my-sdk-env
 # Enable environment
 source my-sdk-env/bin/activate
+# Confirm python environment/path
+which python # ~/my-sdk-env/bin/python
 # Update current pip installation
 pip install --upgrade pip
 
-# Download and install
-pip install splunk-sdk  # Alterate method easy_install or by source
-
+# Download and install SDK
+pip install splunk-sdk  # Alterate method easy_install
 
 # Configuration
 
@@ -29,3 +30,6 @@ pip install splunk-sdk  # Alterate method easy_install or by source
 >>> import splunklib
 >>> dir(splunklib)  # display all attributes and methods of an object
 >>> print(splunklib.__version__) # display SDK version
+
+# To exercise SDK APIs (authentication, search and alerts, etc)
+# Browse to repo devsecops/
