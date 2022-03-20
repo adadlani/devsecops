@@ -32,4 +32,4 @@ pip install splunk-sdk  # Alterate method easy_install
 >>> print(splunklib.__version__) # display SDK version
 
 # To exercise SDK APIs (authentication, search and alerts, etc)
-# Browse to repo devsecops/
+# Browse to repo devsecops/scripts/splunk-sdk-test.py
