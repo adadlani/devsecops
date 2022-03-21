@@ -16,8 +16,25 @@ def main():
         service = client.connect(username=username, password=password,
                                  host=host, port=port, owner=owner, app=app,
                                  sharing=sharing)
+
         if service:
             print("Splunk connection successfull")
+
+            # Execute a few API calls
+            
+            # Return info about server
+            print(service.info) # Return type dictionary with key-value pairs
+
+            # Return all indexes (collection)
+            for index in service.indexes:
+                print(index.name)
+
+            # Return all saved searches
+            saved_searches = service.saved_searches
+            for search in saved_searches:
+                print(search.name)
+
+            
     except Exception as e:
         print(e)
 
