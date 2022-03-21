@@ -1,3 +1,4 @@
+from datetime import datetime
 import splunklib.client as client
 from dotenv import load_dotenv
 import os
@@ -21,20 +22,32 @@ def main():
             print("Splunk connection successfull")
 
             # Execute a few API calls
-            
+
             # Return info about server
-            print(service.info) # Return type dictionary with key-value pairs
+            print(service.info)  # Return type dictionary with key-value pairs
 
             # Return all indexes (collection)
+            index = None
             for index in service.indexes:
                 print(index.name)
 
             # Return all saved searches
+            saved_searches = None
             saved_searches = service.saved_searches
             for search in saved_searches:
                 print(search.name)
 
-            
+            # Create new saved search
+            search = "index=main | stats count by EventCode"
+            date_time = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+            search_name = "Custom SDK Search {}".format(date_time)
+            payload = {}
+            new_search = saved_searches.create(name=search_name,
+                                               search=search, **payload)
+            if new_search:
+                print("New search created successfully with name: {}"
+                      .format(new_search.name))
+
     except Exception as e:
         print(e)
 
