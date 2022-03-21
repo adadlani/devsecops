@@ -8,7 +8,9 @@
 - All steps with ec2-user context (all exceptions will be noted)
   
 # References
-https://dev.splunk.com/python
+- https://dev.splunk.com/python
+- https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/
+- https://docs.splunk.com/Documentation/PythonSDK
 
 # Pre-setup
 # Create python virtual environment (best practice to isolate dependencies)
