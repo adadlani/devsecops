@@ -6,6 +6,7 @@ import os
 
 def main():
     try:
+        # Load .env file (key = "value" pairs)
         load_dotenv()
         username = os.environ.get('username')
         password = os.environ.get('password')
@@ -42,11 +43,18 @@ def main():
             date_time = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
             search_name = "Custom SDK Search {}".format(date_time)
             payload = {}
+            payload['description'] = "My test description"
+            payload['dispatch.earliest_time'] = "-2d"
+            payload['dispatch.latest_time'] = "now"
+            payload['disabled'] = "0"
             new_search = saved_searches.create(name=search_name,
                                                search=search, **payload)
             if new_search:
                 print("New search created successfully with name: {}"
                       .format(new_search.name))
+
+            # TODO: Update saved search using .update method
+            # TODO: Delete saved search using .delete method
 
     except Exception as e:
         print(e)
