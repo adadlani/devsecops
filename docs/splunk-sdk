@@ -9,6 +9,7 @@
   
 # References
 - https://dev.splunk.com
+- https://github.com/splunk/splunk-sdk-python (source & examples)
 - https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/
 - https://docs.splunk.com/Documentation/PythonSDK
 - https://docs.splunk.com/Documentation/Splunk/latest/RESTREF/RESTprolog
