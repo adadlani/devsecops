@@ -8,9 +8,15 @@
 - All steps with ec2-user context (all exceptions will be noted)
   
 # References
-- https://dev.splunk.com/python
+- https://dev.splunk.com
 - https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/
 - https://docs.splunk.com/Documentation/PythonSDK
+
+# SDK architecture (modules):
+- binding: abstraction layer over raw HTTP
+- client: abstraction layer over the Splunk REST API
+- results: Splunk-specific streaming XML reader
+- data: converts Atom Feed data to a Pythonic format
 
 # Pre-setup
 # Create python virtual environment (best practice to isolate dependencies)
