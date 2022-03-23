@@ -20,6 +20,8 @@
 - results: Splunk-specific streaming XML reader
 - data: converts Atom Feed data to a Pythonic format
 
+# SDK supports CRUD operations on resources/objects on Splunk
+
 # Pre-setup
 # Create python virtual environment (best practice to isolate dependencies)
 python3.7 -m venv my-sdk-env
