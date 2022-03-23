@@ -11,6 +11,8 @@
 - https://dev.splunk.com
 - https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/
 - https://docs.splunk.com/Documentation/PythonSDK
+- https://docs.splunk.com/Documentation/Splunk/latest/RESTREF/RESTprolog
+  Operations (HTTP verbs): GET, POST and DELETE
 
 # SDK architecture (modules):
 - binding: abstraction layer over raw HTTP
