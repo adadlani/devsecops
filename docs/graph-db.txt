@@ -11,3 +11,6 @@
 # - NeoJ Desktop
 
 # For development/demo install Neo4J Desktop on AWS Workspace
+https://neo4j.com/download-center/#desktop
+# Requires company email address, registration and then license key provided
+# On initial startup, enter license key and desktop app verifies registration online
