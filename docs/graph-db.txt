@@ -1,0 +1,13 @@
+# Neo4J
+
+# Nodes (Entities) - Relationships
+# Can contain properties (no null values)
+# Relationships are named and directed with a start and end node (e.g (John) Works For (GitHUB)
+# No Schema, relation is first class citizen and related data fetched with a pattern
+
+# Distributions/Releases:
+# - Enterprise
+# - Community Server
+# - NeoJ Desktop
+
+# For development/demo install Neo4J Desktop on AWS Workspace
