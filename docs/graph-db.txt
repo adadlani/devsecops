@@ -14,3 +14,9 @@
 https://neo4j.com/download-center/#desktop
 # Requires company email address, registration and then license key provided
 # On initial startup, enter license key and desktop app verifies registration online
+# Option to download and update to latest version 1.4.14
+
+# Create a new project and create a new GraphDB associated with the project
+
+# Install Awesome Procedures on Cypher (APOC) to support functions such as importing external file data
+
