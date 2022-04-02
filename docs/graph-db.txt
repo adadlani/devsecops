@@ -1,14 +1,15 @@
 # Neo4J
 
-# Nodes (Entities) - Relationships
-# Can contain properties (no null values)
+# Nodes (Entities) - connected by - Relationships (No Tables)
+# Both can contain properties (no null values)
 # Relationships are named and directed with a start and end node (e.g (John) Works For (GitHUB)
 # No Schema, relation is first class citizen and related data fetched with a pattern
+# 
 
 # Distributions/Releases:
 # - Enterprise
 # - Community Server
-# - NeoJ Desktop
+# - Neo4J Desktop
 
 # For development/demo install Neo4J Desktop on AWS Workspace
 https://neo4j.com/download-center/#desktop
@@ -19,4 +20,6 @@ https://neo4j.com/download-center/#desktop
 # Create a new project and create a new GraphDB associated with the project
 
 # Install Awesome Procedures on Cypher (APOC) to support functions such as importing external file data
+
+
 
