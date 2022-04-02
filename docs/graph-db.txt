@@ -57,6 +57,13 @@ https://neo4j.com/download-center/#desktop
     - Select entry displays database counts:
       Nodes, Relationships, Labels, Relationship Types, and Property Keys
       
+# Connect to database using Neo4JBrowser
+- By default uses Bolt interface neo4j@bolt://localhost:7687
+
+# Test sample graph dataset (:play movie graph)
+- Interesting in order to update database counts on Neo4JDesktop, we had to first dump the database and then re-start
+- Note dump file is binary format
+
 
 
 
