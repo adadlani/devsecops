@@ -49,6 +49,14 @@ https://neo4j.com/download-center/#desktop
 - Add following line to Settings:
   apoc.import.file.enabled=true
 
+# Start database
+- Observe Details section updates (IP address, port # for bolt, http(s)
+- Two sub-ntries created:  
+  system: Read-Only meta-data
+  neo4j (default): Our working database instance (Actions: Dump and Remove)
+    - Select entry displays database counts:
+      Nodes, Relationships, Labels, Relationship Types, and Property Keys
+      
 
 
 
