@@ -4,6 +4,7 @@
 # Both can contain properties (no null values)
 # Relationships are named and directed with a start and end node (e.g (John) Works For (GitHUB)
 # No Schema, relation is first class citizen and related data fetched with a pattern
+# Cypher to execute query: https://neo4j.com/docs/cypher-refcard/current/
 
 # Distributions/Releases:
 - Enterprise
@@ -60,10 +61,14 @@ https://neo4j.com/download-center/#desktop
 # Connect to database using Neo4JBrowser
 - By default uses Bolt interface neo4j@bolt://localhost:7687
 
-# Test sample graph dataset (:play movie graph)
+# Test sample graph dataset (:play movie graph) in Neo4JBrowser
 - Interesting in order to update database counts on Neo4JDesktop, we had to first dump the database and then re-start
 - Note dump file is binary format
 
-
-
+# Test with sample JSON file
+- Display help with apoc load procedures:
+  CALL apoc.help("load") # Supported sources: CSV, HTML, JSON, JDBC, LDAP, and XML
+- Create a series of values (each one a dictionary key-value pairs) from a JSON file
+  CALL apoc.load.json("file:/...") YEILD value RETURN value LIMIT 10
+  Note: You can specify a URL end-point as well that returns JSON data
 
