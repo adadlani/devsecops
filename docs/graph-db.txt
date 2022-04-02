@@ -4,7 +4,6 @@
 # Both can contain properties (no null values)
 # Relationships are named and directed with a start and end node (e.g (John) Works For (GitHUB)
 # No Schema, relation is first class citizen and related data fetched with a pattern
-# 
 
 # Distributions/Releases:
 - Enterprise
@@ -24,17 +23,32 @@ https://neo4j.com/download-center/#desktop
 # Navigation left panel:
 - Projects (list of all projects)
 - DBMSs (list of all local databases)
-- Graph Apps (Neo4JBrowser, NeoJBloom, GraphAppsGalary and Neo4JETL Tool)
+- Graph Apps:
+  Neo4JBrowser - execute query
+  NeoJBloom - OOTB Vizualiation
+  GraphAppsGalary
+  Neo4JETL Tool
 
 # Create a new project and create a new local GraphDB associated with the project
 - Project can contain multiple Graph DBMS (use latest version e.g. 4.4.3 to ensure security updates to CVEs)
 - Set DBMS password
-- Select DBMS to view/configure:
-  Details: Meta-data about the graph
+- Select DBMS to view/configure: (right panel)
+  Details: Meta-data about the graph (note default graph status: Stopped)
   Plugins: APOC, Graph Data Science Library, Neo4JStreams and Neosemantics 
   Upgrades: Minor version updates can be applied
+- Actions/Options on DMBS use ellipsis: (left panel)
+  Settings
+  Logs
+  OpenFolder
+  Terminal
+  Clone
+  Dump
+  Remove
 
 # Install Awesome Procedures on Cypher (APOC) to support functions such as importing external file data
+- Add following line to Settings:
+  apoc.import.file.enabled=true
+
 
 
 
