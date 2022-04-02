@@ -72,3 +72,5 @@ https://neo4j.com/download-center/#desktop
   CALL apoc.load.json("file:/...") YEILD value RETURN value LIMIT 10
   Note: You can specify a URL end-point as well that returns JSON data
 
+# Few basic Cypher queries:
+- MATCH (n) RETURN (n) # Return all nodes/relationships
