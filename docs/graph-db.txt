@@ -7,9 +7,9 @@
 # 
 
 # Distributions/Releases:
-# - Enterprise
-# - Community Server
-# - Neo4J Desktop
+- Enterprise
+- Community Server
+- Neo4J Desktop
 
 # For development/demo install Neo4J Desktop on AWS Workspace
 https://neo4j.com/download-center/#desktop
@@ -17,7 +17,22 @@ https://neo4j.com/download-center/#desktop
 # On initial startup, enter license key and desktop app verifies registration online
 # Option to download and update to latest version 1.4.14
 
-# Create a new project and create a new GraphDB associated with the project
+# Operational manual: https://neo4j.com/docs/operations-manual/current/
+- Deployments to Cloud/Docker/Kubernetes
+- Clustering/Management/Security/etc
+
+# Navigation left panel:
+- Projects (list of all projects)
+- DBMSs (list of all local databases)
+- Graph Apps (Neo4JBrowser, NeoJBloom, GraphAppsGalary and Neo4JETL Tool)
+
+# Create a new project and create a new local GraphDB associated with the project
+- Project can contain multiple Graph DBMS (use latest version e.g. 4.4.3 to ensure security updates to CVEs)
+- Set DBMS password
+- Select DBMS to view/configure:
+  Details: Meta-data about the graph
+  Plugins: APOC, Graph Data Science Library, Neo4JStreams and Neosemantics 
+  Upgrades: Minor version updates can be applied
 
 # Install Awesome Procedures on Cypher (APOC) to support functions such as importing external file data
 
