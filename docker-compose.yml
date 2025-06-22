@@ -56,6 +56,24 @@ services:
       - logstash
     networks:
       - elk
+  centos7-logger:
+    build: ./centos7-logger
+    container_name: centos7-logger
+    environment:
+      - FILEBEAT_NAME=centos7-logger
+    depends_on:
+      - logstash
+    networks:
+      - elk
+  rocky8-logger:
+    build: ./rocky8-logger
+    container_name: rocky8-logger
+    environment:
+      - FILEBEAT_NAME=rocky8-logger
+    depends_on:
+      - logstash
+    networks:
+      - elk
 volumes:
   elasticsearch-data:
     driver: local
