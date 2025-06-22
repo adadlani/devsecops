@@ -74,6 +74,17 @@ services:
       - logstash
     networks:
       - elk
+  python-app:
+    build: ./python-app
+    container_name: python-app
+    environment:
+      - FILEBEAT_NAME=python-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./python-app/uploads:/app/uploads
+    networks:
+      - elk
 volumes:
   elasticsearch-data:
     driver: local

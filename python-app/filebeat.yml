@@ -1,0 +1,11 @@
+name: ${FILEBEAT_NAME}
+
+filebeat.inputs:
+- type: filestream
+  id: python-app-stream
+  enabled: true
+  paths:
+    - /var/log/app.log
+
+output.logstash:
+  hosts: ["logstash:5044"]

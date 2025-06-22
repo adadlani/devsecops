@@ -1,0 +1,21 @@
+docker-compose down -v
+
+docker-compose build --no-cache
+
+docker-compose up -d --force-recreate
+
+docker-compose up -d
+
+docker ps
+
+docker images
+
+docker-compose logs -f logstash
+
+docker-compose logs almalinux-logger
+
+docker-compose exec almalinux-logger /bin/bash
+
+logger "This is a manual test from inside AlmaLinux"
+
+docker-compose restart almalinux-logger
