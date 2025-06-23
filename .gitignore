@@ -43,3 +43,22 @@ elasticsearch-data/
 # OS specific files
 .DS_Store
 Thumbs.db
+
+# Angular
+angular-frontend/node_modules/
+angular-frontend/dist/
+angular-frontend/.angular/
+angular-frontend/.env
+angular-frontend/.vscode/
+angular-frontend/.idea/
+angular-frontend/package-lock.json
+
+# Spring Boot/Gradle
+spring-backend/build/
+spring-backend/out/
+spring-backend/.gradle/
+spring-backend/.idea/
+spring-backend/.vscode/
+spring-backend/*.iml
+spring-backend/gradle-app.setting
+spring-backend/.env
