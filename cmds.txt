@@ -1,21 +1,76 @@
-docker-compose down -v
+# Build
+docker-compose build --no-cache ubuntu-logger
 
-docker-compose build --no-cache
-
+# Up
 docker-compose up -d --force-recreate
+docker-compose up -d <optional service>
 
-docker-compose up -d
+# Down
+docker-compose down -v
+docker-compose rm -f ubuntu-logger
 
+# Stop & then remove
+docker-compose stop ubuntu-logger
+docker-compose rm -f ubuntu-logger
+
+# Contianer logs
+docker-compose logs -f ubuntu-logger
+docker-compose logs ubuntu-logger
+
+# Restart
+docker-compose restart ubuntu-logger
+
+# General
+dps
 docker ps
-
 docker images
-
-docker-compose logs -f logstash
-
-docker-compose logs almalinux-logger
-
 docker-compose exec almalinux-logger /bin/bash
 
+# General linux
 logger "This is a manual test from inside AlmaLinux"
 
-docker-compose restart almalinux-logger
+
+AWS Troubleshooting:
+1. If you don't have permissions to do the following changes, contact your AWS Administrator
+
+2. Navigate to the IAM console
+
+3. In the left navigation pane, click on 'Roles'
+
+4. In the search bar, type 'AWSServiceRoleForECS' to check if the role exists
+
+5. If the role doesn't exist:
+   - Click on 'Create role'
+   - Under 'Trusted entity type', select 'AWS service'
+   - Under 'Use case', select 'Elastic Container Service'
+   - Choose 'Elastic Container Service Task' as the use case
+   - Click 'Next'
+   - Review the permissions (should include AmazonECSTaskExecutionRolePolicy)
+   - Click 'Next'
+   - Name the role 'AWSServiceRoleForECS'
+   - Click 'Create role'
+
+6. If the role exists but there might be an issue with permissions:
+   - Click on the 'AWSServiceRoleForECS' role
+   - Go to the 'Trust relationships' tab
+   - Click 'Edit trust relationship'
+   - Ensure the trust policy includes:
+     ```json
+     {
+       "Version": "2012-10-17",
+       "Statement": [
+         {
+           "Effect": "Allow",
+           "Principal": {
+             "Service": "ecs.amazonaws.com"
+           },
+           "Action": "sts:AssumeRole"
+         }
+       ]
+     }
+     ```
+   - If changes were needed, click 'Update Trust Policy'
+
+7. Return to the ECS console
+
+8. Attempt to create the cluster 'precious-kangaroo-c3ojxz' again

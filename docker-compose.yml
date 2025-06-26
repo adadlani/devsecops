@@ -41,82 +41,83 @@ services:
   ubuntu-logger:
     build: ./ubuntu-logger
     container_name: ubuntu-logger
+    privileged: true
     environment:
       - FILEBEAT_NAME=ubuntu-logger
     depends_on:
       - logstash
     networks:
       - elk
-  almalinux-logger:
-    build: ./almalinux-logger
-    container_name: almalinux-logger
-    environment:
-      - FILEBEAT_NAME=almalinux-logger
-    depends_on:
-      - logstash
-    networks:
-      - elk
-  centos7-logger:
-    build: ./centos7-logger
-    container_name: centos7-logger
-    environment:
-      - FILEBEAT_NAME=centos7-logger
-    depends_on:
-      - logstash
-    networks:
-      - elk
-  rocky8-logger:
-    build: ./rocky8-logger
-    container_name: rocky8-logger
-    environment:
-      - FILEBEAT_NAME=rocky8-logger
-    depends_on:
-      - logstash
-    networks:
-      - elk
-  python-app:
-    build: ./python-app
-    container_name: python-app
-    environment:
-      - FILEBEAT_NAME=python-app
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./python-app/uploads:/app/uploads
-    networks:
-      - elk
-  spring-backend:
-    build: ./spring-backend
-    container_name: spring-backend
-    environment:
-      - FILEBEAT_NAME=spring-backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      - logstash
-    networks:
-      - elk
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-  angular-frontend:
-    build: ./angular-frontend
-    container_name: angular-frontend
-    environment:
-      - FILEBEAT_NAME=angular-frontend
-    ports:
-      - "4200:80"
-    depends_on:
-      - spring-backend
-    networks:
-      - elk
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+  # almalinux-logger:
+  #   build: ./almalinux-logger
+  #   container_name: almalinux-logger
+  #   environment:
+  #     - FILEBEAT_NAME=almalinux-logger
+  #   depends_on:
+  #     - logstash
+  #   networks:
+  #     - elk
+  # centos7-logger:
+  #   #build: ./centos7-logger
+  #   container_name: centos7-logger
+  #   environment:
+  #     - FILEBEAT_NAME=centos7-logger
+  #   depends_on:
+  #     - logstash
+  #   networks:
+  #     - elk
+  # rocky8-logger:
+  #   #build: ./rocky8-logger
+  #   container_name: rocky8-logger
+  #   environment:
+  #     - FILEBEAT_NAME=rocky8-logger
+  #   depends_on:
+  #     - logstash
+  #   networks:
+  #     - elk
+  # python-app:
+  #   #build: ./python-app
+  #   container_name: python-app
+  #   environment:
+  #     - FILEBEAT_NAME=python-app
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./python-app/uploads:/app/uploads
+  #   networks:
+  #     - elk
+  # spring-backend:
+  #   #build: ./spring-backend
+  #   container_name: spring-backend
+  #   environment:
+  #     - FILEBEAT_NAME=spring-backend
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - logstash
+  #   networks:
+  #     - elk
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "10m"
+  #       max-file: "3"
+  # angular-frontend:
+  #   #build: ./angular-frontend
+  #   container_name: angular-frontend
+  #   environment:
+  #     - FILEBEAT_NAME=angular-frontend
+  #   ports:
+  #     - "4200:80"
+  #   depends_on:
+  #     - spring-backend
+  #   networks:
+  #     - elk
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "10m"
+  #       max-file: "3"
 volumes:
   elasticsearch-data:
     driver: local

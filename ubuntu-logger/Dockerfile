@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y wget gnupg rsyslog
+RUN apt-get update && apt-get install -y wget gnupg rsyslog auditd audispd-plugins sudo openssh-server
 
 # Install the correct version of Filebeat
 RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
@@ -18,9 +18,16 @@ RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 # Copy our pre-configured filebeat.yml into the container
 COPY filebeat.yml /etc/filebeat/filebeat.yml
 
-# Simple script to generate logs continuously
-RUN echo -e '#!/bin/bash\nwhile true; do echo "Ubuntu log entry: $(date)" | logger; sleep 10; done' > /usr/local/bin/generate_logs.sh && \
-    chmod +x /usr/local/bin/generate_logs.sh
+# Copy log generator scripts
+COPY generate_logs.sh /usr/local/bin/generate_logs.sh
+COPY generate_pki_logs.sh /usr/local/bin/generate_pki_logs.sh
+RUN chmod +x /usr/local/bin/generate_logs.sh /usr/local/bin/generate_pki_logs.sh
 
-# Start the rsyslog daemon, then filebeat, and the log generator
-CMD rsyslogd && filebeat -e & /usr/local/bin/generate_logs.sh
+# Set up SSH server (create run directory and set root password)
+RUN mkdir /var/run/sshd && echo 'root:root' | chpasswd
+
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

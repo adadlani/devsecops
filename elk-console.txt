@@ -1,0 +1,93 @@
+# Click the Variables button, above, to create your own variables.
+GET ${exampleVariable1} // _search
+{
+  "query": {
+    "${exampleVariable2}": {} // match_all
+  }
+}
+
+# List all indexes
+GET _cat/indices?v
+
+# List all indexes that beging with filebeat-* (have a filebeat index per day)
+GET _cat/indices/filebeat-*?v
+
+# Delete all filebeat indexes (new data comes in using the new template)
+DELETE filebeat-8.11.3-2025.06.26
+
+# Get mapping (message is of type "text" & fields->keyword with ignore_above set to 1024)
+GET filebeat-8.11.3-2025.06.26/_mapping
+
+# Add new template to support ignore_above with higher value
+PUT _index_template/filebeat-template
+{
+  "index_patterns": ["filebeat-*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "message": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 1024
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# Search for latest to oldest messages (not we dont see message.keyword which is OK)
+GET filebeat-*/_search
+{
+  "size": 10,
+  "sort": [
+    { "@timestamp": "desc" }
+  ],
+  "_source": ["message","message.keyword"]
+}
+
+# Search any events with message containing (start/middle/end) "System is using"
+GET filebeat-*/_search
+{
+  "size": 5,
+  "query": {
+    "match_phrase": {
+      "message": "System is using"
+    }
+  },
+  "_source": ["message", "message.keyword"]
+}
+
+# Working bucketization of various DNs
+GET filebeat-*/_search
+{
+  "size": 0,
+  "query": {
+    "match_phrase": {
+      "message": "System is using"
+    }
+  },
+  "aggs": {
+    "unique_dns": {
+      "terms": {
+        "script": {
+          "source": """
+            def msg = doc['message.keyword'].value;
+            def m = /System is using (.+) for authentication purpose/.matcher(msg);
+            if (m.find()) {
+              return m.group(1).trim();
+            } else {
+              return 'NO_MATCH: ' + msg;
+            }
+          """,
+          "lang": "painless"
+        },
+        "size": 20
+      }
+    }
+  }
+}
