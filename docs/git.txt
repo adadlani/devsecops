@@ -1,0 +1,11 @@
+Git stuff:
+
+Initial configuration:
+git config --global push.default simple
+git config --global user.name "John Doe"
+git config --global user.email "John.Doe@company.com"
+
+To enable HTTPS credential caching
+git config --global credential.helper 'cache --timeout SECONDS'
+git config credentials.helper store  # specific to a repo
+git push https://github.com/username/repo.git /* User prompted for creds */

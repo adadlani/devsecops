@@ -1,0 +1,52 @@
+# Notes on Splunk SDK download, installation, configuration and sample test run
+
+# Assumptions 
+- Using OOTB Amazon Linux 2 AMI (includes Python3)
+- Following dev tools are available/installed:
+  GIT
+  Python3 (can be installed using Anaconda Distribution)
+- All steps with ec2-user context (all exceptions will be noted)
+  
+# References
+- https://dev.splunk.com
+- https://github.com/splunk/splunk-sdk-python (source & examples)
+- https://dev.splunk.com/enterprise/docs/devtools/python/sdk-python/
+- https://docs.splunk.com/Documentation/PythonSDK (SDK reference)
+- https://docs.splunk.com/Documentation/Splunk/latest/RESTREF/RESTprolog
+  Operations (HTTP verbs): GET, POST and DELETE
+
+# SDK architecture (modules):
+- binding: abstraction layer over raw HTTP
+- client: abstraction layer over the Splunk REST API
+- results: Splunk-specific streaming XML reader
+- data: converts Atom Feed data to a Pythonic format
+
+# SDK supports CRUD operations on resources/objects on Splunk
+
+# Pre-setup
+# Create python virtual environment (best practice to isolate dependencies)
+python3.7 -m venv my-sdk-env
+# Enable environment
+source my-sdk-env/bin/activate
+# Confirm python environment/path
+which python # ~/my-sdk-env/bin/python
+# Update current pip installation
+pip install --upgrade pip
+# Install Pep8 (style checker/lint)
+pip install pycodestyle
+# Install library to load variables from external env file
+pip install python-dotenv
+
+# Download and install SDK
+pip install splunk-sdk  # Alterate method easy_install
+
+# Configuration
+
+# Test run
+# Launch Python REPL and execute commands:
+>>> import splunklib
+>>> dir(splunklib)  # display all attributes and methods of an object
+>>> print(splunklib.__version__) # display SDK version
+
+# To exercise SDK APIs (authentication, search and alerts, etc)
+# Browse to repo devsecops/scripts/splunk-sdk-test.py

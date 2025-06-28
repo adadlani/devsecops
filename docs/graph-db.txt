@@ -1,0 +1,76 @@
+# Neo4J
+
+# Nodes (Entities) - connected by - Relationships (No Tables)
+# Both can contain properties (no null values)
+# Relationships are named and directed with a start and end node (e.g (John) Works For (GitHUB)
+# No Schema, relation is first class citizen and related data fetched with a pattern
+# Cypher to execute query: https://neo4j.com/docs/cypher-refcard/current/
+
+# Distributions/Releases:
+- Enterprise
+- Community Server
+- Neo4J Desktop
+
+# For development/demo install Neo4J Desktop on AWS Workspace
+https://neo4j.com/download-center/#desktop
+# Requires company email address, registration and then license key provided
+# On initial startup, enter license key and desktop app verifies registration online
+# Option to download and update to latest version 1.4.14
+
+# Operational manual: https://neo4j.com/docs/operations-manual/current/
+- Deployments to Cloud/Docker/Kubernetes
+- Clustering/Management/Security/etc
+
+# Navigation left panel:
+- Projects (list of all projects)
+- DBMSs (list of all local databases)
+- Graph Apps:
+  Neo4JBrowser - execute query
+  NeoJBloom - OOTB Vizualiation
+  GraphAppsGalary
+  Neo4JETL Tool
+
+# Create a new project and create a new local GraphDB associated with the project
+- Project can contain multiple Graph DBMS (use latest version e.g. 4.4.3 to ensure security updates to CVEs)
+- Set DBMS password
+- Select DBMS to view/configure: (right panel)
+  Details: Meta-data about the graph (note default graph status: Stopped)
+  Plugins: APOC, Graph Data Science Library, Neo4JStreams and Neosemantics 
+  Upgrades: Minor version updates can be applied
+- Actions/Options on DMBS use ellipsis: (left panel)
+  Settings
+  Logs
+  OpenFolder
+  Terminal
+  Clone
+  Dump
+  Remove
+
+# Install Awesome Procedures on Cypher (APOC) to support functions such as importing external file data
+- Add following line to Settings:
+  apoc.import.file.enabled=true
+
+# Start database
+- Observe Details section updates (IP address, port # for bolt, http(s)
+- Two sub-ntries created:  
+  system: Read-Only meta-data
+  neo4j (default): Our working database instance (Actions: Dump and Remove)
+    - Select entry displays database counts:
+      Nodes, Relationships, Labels, Relationship Types, and Property Keys
+      
+# Connect to database using Neo4JBrowser
+- By default uses Bolt interface neo4j@bolt://localhost:7687
+
+# Test sample graph dataset (:play movie graph) in Neo4JBrowser
+- Interesting in order to update database counts on Neo4JDesktop, we had to first dump the database and then re-start
+- Note dump file is binary format
+
+# Test with sample JSON file
+- Display help with apoc load procedures:
+  CALL apoc.help("load") # Supported sources: CSV, HTML, JSON, JDBC, LDAP, and XML
+- Create a series of values (each one a dictionary key-value pairs) from a JSON file
+  CALL apoc.load.json("file:/...") YEILD value RETURN value LIMIT 10
+  Note: You can specify a URL end-point as well that returns JSON data
+
+# Few basic Cypher queries:
+- MATCH (n) RETURN (n) # Return all nodes/relationships

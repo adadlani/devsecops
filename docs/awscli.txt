@@ -1,0 +1,81 @@
+# Interesting aws ec2 cmds:
+#  attach-volume
+#  create-snapshot *
+#  create-volume
+#  delete-snapshot
+#  delete-volume
+#  describe-instance-status
+#   List all the instances (Ids) and state
+#   aws ec2 cmd --region us-east-1 
+#  describe-instances
+#  describe-snapshot-attribute
+#  describe-snapshots
+#  describe-tags
+#  describe-volumne-attribute
+#  describe-volume-status
+#  describe-volumes
+#  describe-volumes-modifications
+#  detach-volume
+#  modify-snapshot-attribute
+#  modify-volume
+#  modify-volume-attribute
+#  reboot-instances
+#  reset-snapshot-attribute
+#  run-instances
+#  start-instances
+#  stop-instances
+#  terminate-instances
+#  wait
+
+General notes:
+- Tab completion cmd: complete -C aws_completer aws
+- Tools:  pip install jmespath-terminal
+- External tools: jp, jpterm, aws-shell, xargs, sort, tail
+- AWS Alias (similar to ~/.gitconfig [alias] st=status ci=commit
+- AMI references snapshots (ami-cac1ffdc -> Block Devices 
+  /dev/xvda=snap-0379b0e61fb9558ac:8:true:gp2
+- AWS CLI installation:
+  - Ananconda /w Python 3.x
+  - PIP (part of Ananconda)
+  - awscli (pip install awscli) e.g. awscli, aws-shell, awsebcli 
+- A host to execute AWS CLI, one method is via AWS Access/Secret keys:
+  ~/.aws/
+    config
+      [default]
+      region = us-east-1
+      output = json
+    credentials
+      aws_access_key_id = 
+      aws_secret_access_key =
+- Envs: 
+    AWS_CONFIG_FILE $HOME/.aws/config
+    AWS_SHARED_CREDENTIALS_FILE $HOME/.aws/crendentials
+- aws configure set region <region-id> e.g. us-east-1|us-west-1
+- Use --debug option to enable logging; Search for following:
+  - DEBUG - Arguments (Parsing the cmd and args)
+  - DEBUG - Unpacked value (when using file://myinputfile.txt as argument)
+  - DEBUG - Making request for OperationModel (Validat/Serialize parms)
+            About to go on-the-wire and the url going to be hit
+  - DEBUG - "POST...200" Actual request
+  - DEBUG - Response body Actual response (notice botocore internal receives XML)
+  - DEBUG - No retry needed (tells you if any retries were needed)
+- Few CLI examples:
+  --starting-token and --max-items to paginate results
+  aws ec2 describe-regions --output table /* You can use --query {label: value} to format */
+  aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,PublicDnsName,
+    State.Name] --output text
+  aws ec2 describe-instances --output text | grep INSTANCES | cut -f 8
+  aws sts get-caller-identity /* return account arn and userid who made the call */
+  vpc_id=$(aws ec2 create-vpc --cidr-block 10.0.0.0/16  --query Vpc.Id 
+    --output text)
+  vpc_id=$(jp -v Vpc.Vpcid <<< "$create_vpc_response")
+  Use --generate-cli-skeleton output --query Vpc.VpcId /* to see type of rsp */
+  aws create-subnet --cidr-block 10.0.0.0/24 --vpc-id $vpc_id --query Subnet.SubnetId \
+    --output text
+  gateway_id=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId \
+    --output text
+  aws ec2 attach-internet-gateway --vpc-id $vpc_id --internet-gateway-id $gateway_id
+  table_id=$(aws ec2 describe-route-tables --filters Name=vpc-id,Values=$vpc_id \
+    --query RouteTables[].RouteTableId --output text
+  aws ec2 create-route --route-table-id $table_id --destination-cidr-block 0.0.0.0/0 \
+    --gateway-id $gateway_id

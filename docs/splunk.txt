@@ -1,0 +1,84 @@
+Notes on Splunk
+===============
+
+https://www.splunk.com/en_us/download/splunk-enterprise.html#tabs/linux
+Splunk Enterprise 7.0.1 (Free 500MB/Day) Free full feature trial 60 days
+After that you either purchase or use Splunk Free with limitations:
+-Cluster are not possible
+- No alerting/monitoring features
+- No authentication or user/role mgt (all users full access)
+- No TCP/HTTP fowarding formats (only to other Splunk instance)
+
+https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=7.0.1&product=splunk&filename=splunk-7.0.1-2b5b15c4ee89-linux-2.6-x86_64.rpm&wget=true
+File: splunk-7.0.1-2b5b15c4ee89-linux-2.6-x86_64.rpm
+For easy access copy to S3 private bucket
+
+Can source data from many sources including:
+- SNMP
+- Syslog
+- Windows Events
+
+Splunk Universal Forwarder (built-in license):
+- Seperate installer (small footprint)
+- No Splunk web interface
+- Cannot index, search or parse data
+- Python not included
+- Can only output to Splunk indexers
+
+Splunk Heavy Forwarder:
+- Same installer as Splunk Enterprise pkg
+- Requires license
+- Includes Splunk Web interface
+- Can parse, filter (null queue), and route data at the event level
+- Capable of masking sensitive information in your data
+- Includes Python
+- Capable of indexing locally, searching and alerting
+
+Sample SPLs:
+=======
+Configure a new index using web interface:
+- Browse Settings -> Data -> Indexes
+- CLI /opt/splunk/bin/splunk add index linux_test2 # prompts for admin creds
+- Many optional args such as --size 200
+
+Basic Splunk Architecture (Building blocks):
+- Indexer(s)
+- Search Head(s)
+- Universal Forwarder(s)
+At scale:
+- Deployment Server(s) Single Primary and Secondaries
+- Heavy Forwarder (allows parsing/filtering/cleansing/masking/etc)
+
+Single-Instance deployment:  Input, Parsing, Indexing & Searching
+
+Three main roles in Splunk:
+- Admin /* Install apps, create knowledge objects, etc */
+- Power /* Create and share knowledge objects and do real time searches */
+- User /* Will only see self created knowledge objects and ones shared with them */
+
+Cfg to allow splunk to access logs:
+https://www.tecmint.com/secure-files-using-acls-in-linux/
+sudo setfacl -m g:splunk:rx /var/log/messages
+/etc/logrotate.d/Splunk_ACLs
+with
+{
+    postrotate
+        /usr/bin/setfacl -m g:splunk:rx /var/log/cron
+        /usr/bin/setfacl -m g:splunk:rx /var/log/maillog
+        /usr/bin/setfacl -m g:splunk:rx /var/log/messages
+        /usr/bin/setfacl -m g:splunk:rx /var/log/secure
+        /usr/bin/setfacl -m g:splunk:rx /var/log/spooler
+    endscript
+}
+Check the ACL status of a file with
+$ getfacl /var/log/messages
+
+
+Sample SPLs:
+- List all indices
+| eventcount summarize=false index=* | fields index
+- Sample
+Index=uberagent sourcetype=uber Agent:Process:ProcessStartup \
+ | timechart avg(StartupTimeMs) by Name
+- Sample
+index="hotels-on-makemytrip" | stats dc(city) by city | sort -str(city) (data source: kaggle.com)

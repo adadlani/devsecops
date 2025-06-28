@@ -1,0 +1,10 @@
+#!/bin/bash
+# Userdata for CentOS runs under root context
+# Default path is / (danger)
+# Default logging available on the instance /var/log/cloud-init.log
+
+echo $(date) "Start user data script..." > /home/centos/status.txt
+cd /home/centos/devsecops
+git pull
+find /home/centos/devsecops/ | xargs sudo chown centos:centos
+echo $(date) "End user data script..." >> /home/centos/status.txt
