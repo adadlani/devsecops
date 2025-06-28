@@ -1,0 +1,7 @@
+xpack.encryptedSavedObjects.encryptionKey: ""
+xpack.security.encryptionKey: ""
+xpack.reporting.encryptionKey: ""
+
+elasticsearch.username: "kibana_system"
+elasticsearch.password: ""
+elasticsearch.hosts: ["http://elasticsearch:9200"]

@@ -1,0 +1,43 @@
+Your messages may be longer than 256 characters, so they are not stored in message.keyword.
+In that case, you must either:
+Increase the ignore_above value for message.keyword in your index template and reindex your data.
+Use an ingest pipeline to extract the DN into a dedicated field at ingest time.
+
+Scripted fields instructions
+============================
+1. Add a Scripted Field in Kibana
+Go to Stack Management → Index Patterns (or Data Views in newer Kibana).
+Select your filebeat-* data view.
+Click Add field (or "Add scripted field" in older Kibana).
+Name it, e.g., extracted_dn.
+Set Type to string.
+In the script box, enter:
+def msg = doc['message.keyword'].value;
+def m = /System is using (.+) for authentication purpose/.matcher(msg);
+if (m.find()) {
+  return m.group(1).trim();
+}
+return null;
+Save the field.
+
+2. Refresh Kibana browser & ensure you have the desired events searched
+Visualize in Discover or Lens
+Discover:
+Add the extracted_dn field as a column to see unique DNs in your logs.
+Lens (Data Table):
+Go to Visualize → Create visualization → Lens.
+Drag extracted_dn to the "Rows" section.
+Drag "Count" to "Values".
+You’ll see a table of unique DNs and their counts.
+
+Debugging:
+- JSON event contains the following:
+  "_source": { ...
+    "message": "Jun 26 13:11:24 f4b14fe51a56 root: System is using CN=prod-web01,OU=PROD,O=Amazon for authentication purpose.",
+    ...
+  },
+  "fields: {
+    "extracted_dn": ["CN=prod..."],
+    "message": "June 26...",
+    "message.keyword": ["June 26..."]
+  }
