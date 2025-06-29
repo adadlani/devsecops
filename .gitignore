@@ -42,6 +42,7 @@ elasticsearch-data/
 
 # Environment variables
 .env
+.env.*
 
 # IDE specific files
 .vscode/
@@ -150,3 +151,9 @@ ENV/
 
 # Local
 scripts/staticblogs3/
+
+# Ignore real config files with secrets
+kibana.yml
+logstash.conf
+.env
+.env.*
