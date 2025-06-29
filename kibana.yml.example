@@ -1,0 +1,37 @@
+# -----------------------------------------------------------------------------
+# Example Kibana configuration for Docker Compose ELK stack
+# Copy this file to 'kibana.yml' and set secrets via environment variables.
+# Do NOT commit 'kibana.yml' with real secrets to version control.
+# -----------------------------------------------------------------------------
+
+# Encryption keys (must be 32+ chars, set securely in production)
+xpack.encryptedSavedObjects.encryptionKey: "<your_encryption_key_here>"  # e.g. ${KIBANA_ENCRYPTION_KEY}
+xpack.security.encryptionKey: "<your_security_key_here>"                # e.g. ${KIBANA_SECURITY_KEY}
+xpack.reporting.encryptionKey: "<your_reporting_key_here>"              # e.g. ${KIBANA_REPORTING_KEY}
+
+# Elasticsearch credentials (set in docker-compose environment)
+elasticsearch.username: ${KIBANA_USER}         # e.g. 'kibana_system'
+elasticsearch.password: ${KIBANA_PASSWORD}     # e.g. 'your_kibana_password'
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+server.host: "0.0.0.0"
+xpack.reporting.kibanaServer.hostname: "localhost"
+
+# Additional security settings
+server.ssl.enabled: false                     # Set to true and configure below for SSL
+# server.ssl.certificate: /usr/share/kibana/config/certs/kibana.crt  # Example for SSL
+# server.ssl.key: /usr/share/kibana/config/certs/kibana.key          # Example for SSL
+# server.ssl.certificateAuthorities: /usr/share/kibana/config/certs/ca.crt
+# server.ssl.supportedProtocols: ["TLSv1.2", "TLSv1.3"]
+
+xpack.security.cookieName: "kibana-session"
+xpack.security.session.idleTimeout: "1h"
+xpack.security.session.lifespan: "30d"
+
+# Disable security audit for development (enable in production)
+xpack.security.audit.enabled: false
+
+# -----------------------------------------------------------------------------
+# For production, set all secrets via environment variables and enable SSL.
+# See documentation for more options: https://www.elastic.co/guide/en/kibana/current/settings.html
+# -----------------------------------------------------------------------------

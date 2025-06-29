@@ -1,7 +1,19 @@
-xpack.encryptedSavedObjects.encryptionKey: ""
-xpack.security.encryptionKey: ""
-xpack.reporting.encryptionKey: ""
+xpack.encryptedSavedObjects.encryptionKey: "${KIBANA_ENCRYPTED_SAVED_OBJECTS_KEY}"
+xpack.security.encryptionKey: "${KIBANA_SECURITY_KEY}"
+xpack.reporting.encryptionKey: "${KIBANA_REPORTING_KEY}"
 
-elasticsearch.username: "kibana_system"
-elasticsearch.password: ""
+elasticsearch.username: ${KIBANA_USER}
+elasticsearch.password: ${KIBANA_PASSWORD}
 elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+server.host: "0.0.0.0"
+xpack.reporting.kibanaServer.hostname: "localhost"
+
+# Additional security settings
+server.ssl.enabled: false
+xpack.security.cookieName: "kibana-session"
+xpack.security.session.idleTimeout: "1h"
+xpack.security.session.lifespan: "30d"
+
+# Disable security audit for development
+xpack.security.audit.enabled: false

@@ -5,6 +5,7 @@ services:
     environment:
       - "discovery.type=single-node"
       - "xpack.security.enabled=true"
+      - "xpack.security.http.ssl.enabled=false"  # Temporarily disable SSL until we set up proper certs
     ports:
       - "9200:9200"
     volumes:
@@ -23,6 +24,9 @@ services:
       - "5044:5044"
     volumes:
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    environment:
+      - ELASTIC_USER=${ELASTIC_USER}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -38,6 +42,12 @@ services:
         condition: service_healthy
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - KIBANA_USER=${KIBANA_USER}
+      - KIBANA_PASSWORD=${KIBANA_PASSWORD}
+      - KIBANA_ENCRYPTED_SAVED_OBJECTS_KEY=${KIBANA_ENCRYPTED_SAVED_OBJECTS_KEY}
+      - KIBANA_SECURITY_KEY=${KIBANA_SECURITY_KEY}
+      - KIBANA_REPORTING_KEY=${KIBANA_REPORTING_KEY}
     networks:
       - elk
   ubuntu-logger:

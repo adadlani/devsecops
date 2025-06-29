@@ -41,3 +41,6 @@ Debugging:
     "message": "June 26...",
     "message.keyword": ["June 26..."]
   }
+
+  elasticsearch superuser:
+  elasticsearch kibana_system:
