@@ -7,6 +7,9 @@ filebeat.inputs:
     - /var/log/syslog
     - /var/log/messages
 
+processors:
+  - add_host_metadata: ~
+
 # Send logs to the Logstash container over the internal Docker network.
 output.logstash:
   hosts: ["logstash:5044"]

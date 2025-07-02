@@ -16,6 +16,7 @@ docker-compose rm -f ubuntu-logger
 # Contianer logs
 docker-compose logs -f ubuntu-logger
 docker-compose logs ubuntu-logger
+docker-compose logs kibana
 
 # Restart
 docker-compose restart ubuntu-logger
