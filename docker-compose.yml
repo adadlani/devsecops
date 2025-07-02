@@ -60,6 +60,10 @@ services:
       - logstash
     networks:
       - elk
+    volumes:
+      - /etc/hostname:/etc/hostname:ro
+      - /etc/hosts:/etc/hosts:ro
+      - /proc:/hostfs/proc:ro
   # almalinux-logger:
   #   build: ./almalinux-logger
   #   container_name: almalinux-logger

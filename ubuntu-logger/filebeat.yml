@@ -9,6 +9,10 @@ filebeat.inputs:
 #    - /var/log/auth.log
 #    - /var/log/audit/audit.log
 
+processors:
+  - add_host_metadata:
+      netinfo.enabled: true
+
 # Send logs to the Logstash container over the internal Docker network.
 output.logstash:
   hosts: ["logstash:5044"]
